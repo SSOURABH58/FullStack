@@ -1,0 +1,34 @@
+version: '0'
+services:
+  frontend:
+    build:
+      context: ./frontEnd/show-me-the-money
+      dockerfile: dockerfile
+    networks:
+      - show-me-the-money
+    ports:
+      - "8080:80"
+    environment:
+      VITE_API_BASE_URL: http://localhost:5000/
+
+  backend:
+    build:
+      context: ./show-me-the-money-apis
+      dockerfile: dockerfile
+    networks:
+      - show-me-the-money
+    ports:
+      - "5000:5000"
+    environment:
+      XERO_API: http://xero-api:3000/api.xro/2.0/Reports/BalanceSheet
+
+  xero-api:
+    image: jaypeng2015/show-me-the-money:latest
+    networks:
+      - show-me-the-money
+    ports:
+      - "3000:3000"
+
+networks:
+  show-me-the-money:
+    driver: bridge
