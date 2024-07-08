@@ -1,0 +1,17 @@
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+ENV XERO_API=http://localhost:3000/api.xro/2.0/Reports/BalanceSheet
+
+RUN npm run build
+
+EXPOSE 5000
+
+CMD ["npm", "start"]
