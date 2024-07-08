@@ -11,14 +11,14 @@ import Cell from "./Cell";
 
 const columnHelper = createColumnHelper<any>();
 interface TableProps {
-  header: Row;
+  header?: Row;
   rows: Row[];
 }
 
 const Table: FC<TableProps> = ({ header, rows }) => {
   const columns = useMemo(
     () =>
-      header.Cells?.map((cell, index) =>
+      header?.Cells?.map((cell, index) =>
         columnHelper.accessor(index.toString(), {
           header: () => cell?.Value,
           cell: ({ getValue }) => (

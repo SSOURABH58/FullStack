@@ -18,14 +18,20 @@ function BalanceSheet() {
     queryFn: fetchBalanceSheet,
   });
 
-  const BalanceSheetReport = useMemo(() => data?.data?.Reports[0], [data]);
+  const BalanceSheetReport = useMemo(
+    () => (data?.data?.Reports?.length ? data?.data?.Reports[0] : undefined),
+    [data]
+  );
 
   const allRows = useMemo(
     () => flattenRows(BalanceSheetReport?.Rows ?? []),
     [BalanceSheetReport]
   );
 
-  const header = useMemo(() => allRows[0], [allRows]);
+  const header = useMemo(
+    () => (allRows?.length ? allRows[0] : undefined),
+    [allRows]
+  );
   const rows = useMemo(() => allRows.slice(1), [allRows]);
 
   return (
